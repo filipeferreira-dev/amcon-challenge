@@ -1,0 +1,40 @@
+﻿@using Challenge.ApplicationService.Messages.Response;
+@using System.Globalization;
+@model SummaryResponse;
+@{
+    ViewData["Title"] = "Indicadores";
+
+    var numberFormat = (NumberFormatInfo)CultureInfo.GetCultureInfo("pt-br").NumberFormat.Clone();
+    numberFormat.CurrencyNegativePattern = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Indicadores</h1>
+</div>
+
+<div class="row mt-5">
+    <div class="col">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header text-center">Lojistas ativos</div>
+            <div class="card-body">
+                <h2 class="card-title text-center">@Model.MerchantsCount</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header text-center">Vendas Realizadas</div>
+            <div class="card-body">
+                <h2 class="card-title text-center">@Model.PurchaseCount</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header text-center">Valor financeiro operado</div>
+            <div class="card-body">
+                <h2 class="card-title text-center">@Model.PurchaseAmmount.ToString("c", numberFormat)</h2>
+            </div>
+        </div>
+    </div>
+</div>

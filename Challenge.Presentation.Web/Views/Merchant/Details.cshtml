@@ -1,0 +1,64 @@
+﻿@using System.Globalization;
+@model Challenge.ApplicationService.Messages.Response.MerchantResponse
+
+@{
+    ViewData["Title"] = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var numberFormat = (NumberFormatInfo)CultureInfo.GetCultureInfo("pt-br").NumberFormat.Clone();
+    numberFormat.CurrencyNegativePattern = 1;
+}
+
+<h1>Detials</h1>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Balance.ToString("c", numberFormat)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Vendas</h4>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Data da compra</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Purchases)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Amount.ToString("c", numberFormat)</td>
+                        <td>@item.Date.ToString("dd/MM/yyyy HH:mm") </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Indicadores", "Summary", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>
